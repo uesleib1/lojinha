@@ -1,0 +1,260 @@
+
+/* =========================
+   RESET
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html, body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
+  font-family:Arial, sans-serif;
+}
+
+/* =========================
+   🎮 GAME
+========================= */
+
+#game{
+  width:100vw;
+  height:100vh;
+  position:relative;
+}
+
+/* =========================
+   🗺️ MAPA
+========================= */
+
+#mapa{
+  position:absolute;
+  inset:0;
+
+  background:url("img/mapa.png") no-repeat center center;
+  background-size:cover;
+
+  overflow:hidden;
+}
+
+/* =========================
+   🏪 GRID DAS LOJAS
+========================= */
+
+#lojasContainer{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+
+  display:grid;
+
+  /* 🖥️ DESKTOP */
+  grid-template-columns:repeat(3, 150px);
+  grid-template-rows:repeat(2, 150px);
+
+  gap:25px;
+
+  justify-items:center;
+  align-items:center;
+
+  z-index:10;
+}
+
+/* =========================
+   🏪 LOJAS
+========================= */
+
+.loja{
+  width:150px;
+  height:150px;
+
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+
+  cursor:pointer;
+  transition:0.2s ease;
+
+  display:block;
+}
+
+.loja:hover{
+  transform:scale(1.08);
+}
+
+/* =========================
+   🖼️ IMAGENS DAS LOJAS
+========================= */
+
+#lojaCamisas{ background-image:url("img/lojas/camisas.png"); }
+#lojaCanecas{ background-image:url("img/lojas/canecas.png"); }
+#lojaChaveiros{ background-image:url("img/lojas/chaveiros.png"); }
+#lojaQuadros{ background-image:url("img/lojas/quadros.png"); }
+#lojaEcobags{ background-image:url("img/lojas/ecobags.png"); }
+#lojaComidas{ background-image:url("img/lojas/comidas.png"); }
+
+/* =========================
+   🎁 BAÚ
+========================= */
+
+#bau{
+  position:absolute;
+  width:60px;
+  height:60px;
+  left:40px;
+  top:40px;
+
+  background:url("img/bau.png") no-repeat center;
+  background-size:contain;
+
+  cursor:pointer;
+  z-index:20;
+}
+
+/* =========================
+   💰 HUD
+========================= */
+
+#moedasHUD{
+  position:absolute;
+  top:10px;
+  left:10px;
+
+  background:#000;
+  color:#ffd700;
+
+  padding:8px 12px;
+  border:2px solid #ffd700;
+
+  z-index:1000;
+}
+
+#inventarioHUD{
+  position:absolute;
+  top:10px;
+  right:10px;
+
+  background:#000;
+  color:#fff;
+
+  padding:8px 12px;
+  border:2px solid #7a2cff;
+
+  cursor:pointer;
+  z-index:1000;
+}
+
+/* =========================
+   🏪 MENU LOJA
+========================= */
+
+#menuLoja{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
+  width:360px;
+
+  background:#000;
+  color:#fff;
+
+  border:3px solid #7a2cff;
+  padding:18px;
+
+  display:none;
+  z-index:9999;
+}
+
+#opcoesLoja button{
+  width:100%;
+  margin:6px 0;
+  padding:10px;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  background:#7a2cff;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+#opcoesLoja img{
+  width:40px;
+  height:40px;
+  background:#fff;
+  border-radius:6px;
+}
+
+/* =========================
+   🎒 INVENTÁRIO
+========================= */
+
+#inventarioBox{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
+  background:#111;
+  color:#fff;
+
+  border:3px solid #7a2cff;
+  padding:20px;
+
+  display:none;
+  z-index:9999;
+}
+
+/* =========================
+   🎮 TELA INICIAL
+========================= */
+
+#telaInicial{
+  position:fixed;
+  inset:0;
+
+  background:url("img/inicio.jpg") center/cover no-repeat;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:99999;
+}
+
+.botaoRPG{
+  padding:12px 26px;
+
+  background:linear-gradient(180deg,#8b5a2b,#5a3218);
+  color:#f2d7a0;
+
+  border:3px solid #d6b36a;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* =========================
+   📱 RESPONSIVO
+========================= */
+
+@media (max-width:768px){
+
+  #lojasContainer{
+    grid-template-columns:repeat(2, 140px);
+    grid-template-rows:repeat(3, 140px);
+    gap:18px;
+  }
+
+  .loja{
+    width:140px;
+    height:140px;
+  }
+}
