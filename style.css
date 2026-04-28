@@ -81,25 +81,26 @@ html, body{
   to   { transform:translateY(-300px); }
 }
 
-/* 🏪 LOJAS GRID */
+/* 🏪 LOJAS RESPONSIVAS */
 #lojasContainer{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%, -50%);
 
+  width:90%;
+  max-width:520px;
+
   display:grid;
-  grid-template-columns:repeat(3, 150px);
-  grid-template-rows:repeat(2, 150px);
-  gap:25px;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
 
   z-index:10;
 }
 
-/* 🏪 LOJAS */
 .loja{
-  width:150px;
-  height:150px;
+  width:100%;
+  aspect-ratio:1/1;
 
   background-size:contain;
   background-repeat:no-repeat;
@@ -135,15 +136,14 @@ html, body{
   position:absolute;
   width:60px;
   height:60px;
-  left:40px;
-  top:40px;
+  left:10px;
+  top:50px;
 
   background:url("img/bau.png") no-repeat center;
   background-size:contain;
 
   cursor:pointer;
   z-index:20;
-  transition:0.2s;
 }
 
 #bau:hover{
@@ -182,8 +182,6 @@ html, body{
 
   cursor:pointer;
   z-index:50;
-
-  transition:0.2s;
 }
 
 #inventarioHUD:hover{
@@ -198,6 +196,8 @@ html, body{
   transform:translate(-50%,-60%) scale(0.9);
 
   width:360px;
+  max-width:90%;
+
   background:#000;
   color:#fff;
   border:3px solid #7a2cff;
@@ -225,17 +225,13 @@ html, body{
   align-items:center;
   gap:10px;
 
-  background:#7a2cff;
+  background:#7a2cff; /* cor do botão */
   border:none;
   color:#fff;
   border-radius:6px;
 
   cursor:pointer;
   transition:0.2s;
-}
-
-#opcoesLoja button:hover{
-  background:#9a4cff;
 }
 
 #opcoesLoja img{
@@ -245,25 +241,40 @@ html, body{
   border-radius:6px;
 }
 
+/* 🎒 INVENTÁRIO */
 /* 🎒 INVENTÁRIO / PEDIDO */
 #inventarioBox{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%) scale(0.95);
 
   width:400px;
-  background:#111;
+  max-width:90%;
+
+  background:rgba(15,15,15,0.95);
+  backdrop-filter: blur(6px);
+
   color:#fff;
   border:3px solid #7a2cff;
-  border-radius:10px;
+  border-radius:12px;
 
   padding:20px;
   display:none;
 
   z-index:200;
+
+  opacity:0;
+  transition:0.25s;
 }
 
+#inventarioBox.ativo{
+  display:block;
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+
+/* LISTA */
 #listaInventario{
   margin:15px 0;
   display:flex;
@@ -271,24 +282,50 @@ html, body{
   gap:10px;
   max-height:250px;
   overflow-y:auto;
+  padding-right:5px;
 }
 
+/* SCROLL BONITO */
+#listaInventario::-webkit-scrollbar{
+  width:6px;
+}
+
+#listaInventario::-webkit-scrollbar-thumb{
+  background:#7a2cff;
+  border-radius:10px;
+}
+
+/* ITEM */
 .itemInventario{
   display:flex;
   justify-content:space-between;
   align-items:center;
+
   background:#1a1a1a;
-  padding:8px;
-  border-radius:6px;
+  padding:10px;
+  border-radius:8px;
+
+  transition:0.2s;
 }
 
+.itemInventario:hover{
+  transform:scale(1.02);
+  background:#222;
+}
+
+/* BOTÃO REMOVER */
 .itemInventario button{
   background:#ff4d4d;
   border:none;
   color:#fff;
   cursor:pointer;
-  padding:4px 8px;
-  border-radius:4px;
+  padding:5px 10px;
+  border-radius:6px;
+  transition:0.2s;
+}
+
+.itemInventario button:hover{
+  background:#ff6666;
 }
 
 /* TOTAL */
@@ -296,18 +333,19 @@ html, body{
   margin:10px 0;
   font-weight:bold;
   color:#ffd700;
+  text-align:center;
 }
 
-/* BOTÃO WHATSAPP */
+/* BOTÃO FINALIZAR */
 #btnFinalizar{
   width:100%;
-  padding:10px;
+  padding:12px;
   background:#25D366;
   border:none;
   color:#fff;
   font-weight:bold;
   cursor:pointer;
-  border-radius:6px;
+  border-radius:8px;
   margin-bottom:10px;
   transition:0.2s;
 }
@@ -336,11 +374,8 @@ html, body{
   border:2px solid #ffd700;
   border-radius:8px;
 
-  font-size:14px;
-  text-align:center;
-
   opacity:0;
-  transform:translateY(20px) scale(0.95);
+  transform:translateY(20px);
 
   animation: subirFade 0.4s ease forwards;
 }
@@ -348,7 +383,7 @@ html, body{
 @keyframes subirFade{
   to{
     opacity:1;
-    transform:translateY(0) scale(1);
+    transform:translateY(0);
   }
 }
 
@@ -370,9 +405,13 @@ html, body{
   border:3px solid #d6b36a;
   border-radius:8px;
   cursor:pointer;
-  transition:0.2s;
 }
 
-.botaoRPG:hover{
-  transform:scale(1.05);
+/* 📱 MOBILE */
+@media (max-width:768px){
+
+  #lojasContainer{
+    grid-template-columns:repeat(2, 1fr);
+  }
+
 }

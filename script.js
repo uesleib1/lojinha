@@ -24,7 +24,7 @@ const lojas = {
   ]
 };
 
-/* ================= 🔔 NOTIFICAÇÕES ================= */
+/* 🔔 NOTIFICAÇÕES */
 function mostrarNotificacao(texto){
   const container = document.getElementById("notificacoes");
   const div = document.createElement("div");
@@ -33,17 +33,15 @@ function mostrarNotificacao(texto){
 
   container.appendChild(div);
 
-  setTimeout(()=>{
-    div.remove();
-  }, 2500);
+  setTimeout(()=> div.remove(), 2500);
 }
 
-/* ================= 💰 MOEDAS ================= */
+/* 💰 MOEDAS */
 function atualizarMoedas(){
   document.getElementById("moedasHUD").innerText = "💰 " + moedas;
 }
 
-/* ================= 🏪 LOJAS ================= */
+/* 🏪 LOJAS */
 function abrirLoja(nome){
 
   document.getElementById("mapa").classList.add("blur");
@@ -54,8 +52,6 @@ function abrirLoja(nome){
 
   titulo.innerText = nome.toUpperCase();
   opcoes.innerHTML = "";
-
-  document.getElementById("produtoPreview").style.display = "none";
 
   lojas[nome].forEach(produto => {
 
@@ -87,12 +83,6 @@ function comprarProduto(produto){
   atualizarMoedas();
   atualizarInventario();
 
-  const preview = document.getElementById("produtoPreview");
-
-  preview.style.display = "block";
-  document.getElementById("nomeProduto").innerText = produto.nome;
-  document.getElementById("imagemProduto").src = produto.img;
-
   mostrarNotificacao(`🛒 Comprou: ${produto.nome}`);
 }
 
@@ -101,7 +91,7 @@ function fecharLoja(){
   document.getElementById("mapa").classList.remove("blur");
 }
 
-/* ================= 🎒 INVENTÁRIO ================= */
+/* 🎒 INVENTÁRIO */
 function atualizarInventario(){
 
   const lista = document.getElementById("listaInventario");
@@ -143,15 +133,16 @@ function removerItem(index){
 }
 
 function abrirInventario(){
-  document.getElementById("inventarioBox").style.display = "block";
+  const box = document.getElementById("inventarioBox");
+  box.classList.add("ativo");
   atualizarInventario();
 }
 
 function fecharInventario(){
-  document.getElementById("inventarioBox").style.display = "none";
+  document.getElementById("inventarioBox").classList.remove("ativo");
 }
 
-/* ================= 📲 WHATSAPP ================= */
+/* 📲 WHATSAPP */
 function finalizarPedido(){
 
   if(inventario.length === 0){
@@ -160,7 +151,6 @@ function finalizarPedido(){
   }
 
   let mensagem = "🧾 *Pedido Feira Geek*%0A%0A";
-
   let total = 0;
 
   inventario.forEach(item => {
@@ -170,14 +160,13 @@ function finalizarPedido(){
 
   mensagem += `%0A💰 Total: R$ ${total}`;
 
-  const numero = "5599999999999"; // 👈 TROCAR
-
+  const numero = "5599999999999";
   const url = `https://wa.me/${numero}?text=${mensagem}`;
 
   window.open(url, "_blank");
 }
 
-/* ================= 🎁 BAÚ ================= */
+/* 🎁 BAÚ */
 function abrirBau(){
 
   if(!bauAberto){
@@ -185,19 +174,18 @@ function abrirBau(){
     bauAberto = true;
 
     atualizarMoedas();
-
     mostrarNotificacao("🎁 Você ganhou 200 moedas!");
   } else {
     mostrarNotificacao("🪙 Baú já foi aberto!");
   }
 }
 
-/* ================= 🎮 JOGO ================= */
+/* 🎮 JOGO */
 function entrarJogo(){
   document.getElementById("telaInicial").style.display = "none";
 }
 
-/* ================= 🚀 INIT ================= */
+/* 🚀 INIT */
 window.addEventListener("DOMContentLoaded", () => {
 
   atualizarMoedas();
