@@ -422,7 +422,7 @@ html, body{
   /* As lojas ficam quadradas e com tamanho confortável */
   .loja {
     aspect-ratio: 1 / 1;
-    max-width: 170px;
+    max-width: 165px;
     margin: 0 auto;
   }
 
@@ -443,8 +443,8 @@ html, body{
 
   /* Baú um pouco menor */
   #bau {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     left: 8px;
     top: 50px; /* abaixo do HUD */
   }
