@@ -467,17 +467,18 @@ html, body{
   }
 
   /* Slots (inventário Minecraft) – fica na parte inferior direita */
-  #inventarioSlots {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    top: auto;
-    left: auto;
-    transform: none;
-    grid-template-rows: repeat(5, 50px);
-    gap: 6px;
-    z-index: 100;
-  }
+ #inventarioSlots {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: auto;
+  right: auto;
+  display: flex;            /* muda para flex horizontal */
+  flex-direction: row;      /* itens em linha */
+  gap: 8px;
+  grid-template-rows: none; /* remove o grid vertical */
+}
 
   .slot {
     width: 50px;
