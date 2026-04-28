@@ -454,4 +454,12 @@ html, body{
     width:70%;
     height:70%;
   }
+
+  /* Baú menor */
+  #bau {
+    width: 70px;
+    height: 70px;
+    left: 8px;
+    top: 50px;
+  }
 }
