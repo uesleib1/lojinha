@@ -1,83 +1,85 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forja RPG</title>
-
+  <title>Feira Geek</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <!-- 🎮 TELA INICIAL -->
 <div id="telaInicial">
-  <div class="botaoRPG" onclick="entrarJogo()">
-    ▶ Entrar
-  </div>
+  <button class="botaoRPG" onclick="entrarJogo()">Começar</button>
 </div>
 
-<!-- 🎮 JOGO -->
+<!-- 🎮 GAME -->
 <div id="game">
 
   <!-- 🗺️ MAPA -->
   <div id="mapa">
 
-    <!-- 🏪 LOJAS GRID (ESSENCIAL - NÃO REMOVER) -->
-    <div id="lojasContainer">
+    <!-- 🌬️ BANDEIRAS -->
+    <div class="bandeiras"></div>
 
+    <!-- ✨ PARTÍCULAS -->
+    <div class="particulas"></div>
+
+    <!-- 🎁 BAÚ -->
+    <div id="bau"></div>
+
+    <!-- 🏪 LOJAS -->
+    <div id="lojasContainer">
       <div id="lojaCamisas" class="loja"></div>
       <div id="lojaCanecas" class="loja"></div>
       <div id="lojaChaveiros" class="loja"></div>
       <div id="lojaQuadros" class="loja"></div>
       <div id="lojaEcobags" class="loja"></div>
       <div id="lojaComidas" class="loja"></div>
-
     </div>
 
-    <!-- 🎁 BAÚ -->
-    <div id="bau"></div>
-
   </div>
 
-  <!-- 💰 HUD MOEDAS -->
+  <!-- 💰 HUD -->
   <div id="moedasHUD">💰 0</div>
+  <div id="inventarioHUD">🎒 Pedido</div>
 
-  <!-- 🎒 INVENTÁRIO BUTTON -->
-  <div id="inventarioHUD">🎒 Inventário</div>
+  <!-- 🏪 MENU DA LOJA -->
+  <div id="menuLoja">
 
-</div>
+    <h2 id="tituloLoja">LOJA</h2>
 
-<!-- 🏪 MENU LOJA -->
-<div id="menuLoja">
+    <div id="opcoesLoja"></div>
 
-  <h2 id="tituloLoja"></h2>
+    <!-- 🧾 PREVIEW -->
+    <div id="produtoPreview" style="display:none; margin-top:15px;">
+      <h3 id="nomeProduto"></h3>
+      <img id="imagemProduto" style="width:100%; max-width:120px;">
+    </div>
 
-  <div id="opcoesLoja"></div>
+    <button onclick="fecharLoja()" style="margin-top:10px;">Fechar</button>
 
-  <!-- 🔎 PREVIEW PRODUTO -->
-  <div id="produtoPreview">
-    <h3 id="nomeProduto"></h3>
-    <img id="imagemProduto">
   </div>
 
-  <button onclick="fecharLoja()">Fechar</button>
+  <!-- 🎒 INVENTÁRIO / PEDIDO -->
+  <div id="inventarioBox">
+
+    <h2>🧾 Seu Pedido</h2>
+
+    <div id="listaInventario"></div>
+
+    <div id="totalPedido">Total: 💰 0</div>
+
+    <button id="btnFinalizar">Finalizar Pedido</button>
+    <button onclick="fecharInventario()">Fechar</button>
+
+  </div>
 
 </div>
 
-<!-- 🎒 INVENTÁRIO -->
-<div id="inventarioBox">
+<!-- 🔔 NOTIFICAÇÕES -->
+<div id="notificacoes"></div>
 
-  <h2>🎒 Inventário</h2>
-
-  <div id="listaInventario"></div>
-
-  <button onclick="fecharInventario()">Fechar</button>
-
-</div>
-
-<!-- ⚙️ JS -->
+<!-- 📜 SCRIPT -->
 <script src="script.js"></script>
 
 </body>
