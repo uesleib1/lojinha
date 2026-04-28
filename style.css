@@ -484,11 +484,102 @@ html, body {
 
   #tituloInicial {
     width: 90%;
-    max-width: 340px;
+    max-width: 320px;
   }
 
   #btnComecar {
-    width: 230px;
+    width: 180px;
   }
 
+}
+
+/* 👁️ VISUALIZADOR */
+#visualizadorProduto {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+#visualizadorProduto.ativo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#visualizadorProduto img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.8);
+}
+
+#fecharVisualizador {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 🏪 NOVO CARD DE PRODUTO */
+.produtoCard {
+  background: #1a1a1a;
+  border: 2px solid #7a2cff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.produtoCard img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.produtoInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.produtoBotoes {
+  display: flex;
+  gap: 8px;
+}
+
+.btnAdd {
+  flex: 1;
+  background: #25D366;
+  border: none;
+  color: #fff;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnVer {
+  flex: 1;
+  background: #444;
+  border: none;
+  color: #fff;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnAdd:hover {
+  background: #1ebe5d;
+}
+
+.btnVer:hover {
+  background: #666;
 }

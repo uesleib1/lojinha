@@ -17,7 +17,9 @@ const lojas = {
     { nome: "Chaveiro Anime", img: "img/chaveiro-anime.jpg", preco: 10 }
   ],
   quadros: [
-    { nome: "Quadro Geek", img: "img/quadro-geek.jpg", preco: 80 }
+    { nome: "Harry Potter", img: "img/q_harry.png", preco: 45 },
+    { nome: "Harry Potter", img: "img/q_harry2.png", preco: 45 },
+    { nome: "Pokémon", img: "img/q_poke.png", preco: 60 },
   ],
   ecobags: [
     { nome: "Ecobag Anime", img: "img/ecobag-anime.jpg", preco: 30 }
@@ -45,7 +47,7 @@ function atualizarMoedas(){
   document.getElementById("moedasHUD").innerText = "💰 " + moedas;
 }
 
-/* 🏪 LOJAS */
+/* 🏪 LOJAS (ATUALIZADA) */
 function abrirLoja(nome){
 
   document.getElementById("mapa").classList.add("blur");
@@ -59,16 +61,27 @@ function abrirLoja(nome){
 
   lojas[nome].forEach(produto => {
 
-    const btn = document.createElement("button");
+    const card = document.createElement("div");
+    card.classList.add("produtoCard");
 
-    btn.innerHTML = `
+    card.innerHTML = `
       <img src="${produto.img}">
-      <span>${produto.nome} - 💰 ${produto.preco}</span>
+      
+      <div class="produtoInfo">
+        <span>${produto.nome}</span>
+        <span>💰 ${produto.preco}</span>
+      </div>
+
+      <div class="produtoBotoes">
+        <button class="btnAdd">Adicionar</button>
+        <button class="btnVer">Ver</button>
+      </div>
     `;
 
-    btn.onclick = () => comprarProduto(produto);
+    card.querySelector(".btnAdd").onclick = () => comprarProduto(produto);
+    card.querySelector(".btnVer").onclick = () => visualizarProduto(produto.img);
 
-    opcoes.appendChild(btn);
+    opcoes.appendChild(card);
   });
 
   menu.classList.add("ativo");
@@ -84,19 +97,17 @@ function comprarProduto(produto){
 
   moedas -= produto.preco;
 
-  // inventário normal (já existente)
   inventario.push(produto);
 
   atualizarMoedas();
   atualizarInventario();
 
-  // 🎒 NOVO: adiciona nos slots estilo Minecraft
   adicionarAoSlot(produto);
 
   mostrarNotificacao(`🛒 Comprou: ${produto.nome}`);
 }
 
-/* 🧱 SISTEMA DE SLOTS (MINECRAFT) */
+/* 🧱 SISTEMA DE SLOTS */
 function adicionarAoSlot(produto){
 
   let item = slots.find(i => i.nome === produto.nome);
@@ -148,7 +159,7 @@ function fecharLoja(){
   document.getElementById("mapa").classList.remove("blur");
 }
 
-/* 🎒 INVENTÁRIO ANTIGO (LISTA DETALHADA) */
+/* 🎒 INVENTÁRIO */
 function atualizarInventario(){
 
   const lista = document.getElementById("listaInventario");
@@ -184,10 +195,8 @@ function removerItem(index){
   moedas += itemRemovido.preco;
   const nome = itemRemovido.nome;
 
-  // remove do inventário principal
   inventario.splice(index, 1);
 
-  // 🧱 remove ou reduz do inventário em slots
   const slotIndex = slots.findIndex(s => s.nome === nome);
 
   if(slotIndex !== -1){
@@ -205,13 +214,13 @@ function removerItem(index){
 
   mostrarNotificacao(`💰 Removeu: ${nome}`);
 }
-/* 🎒 ABRIR INVENTÁRIO */
+
+/* 🎒 INVENTÁRIO MODAL */
 function abrirInventario(){
   document.getElementById("inventarioBox").classList.add("ativo");
   atualizarInventario();
 }
 
-/* 🎒 FECHAR INVENTÁRIO */
 function fecharInventario(){
   document.getElementById("inventarioBox").classList.remove("ativo");
 }
@@ -254,6 +263,22 @@ function abrirBau(){
   }
 }
 
+/* 👁️ VISUALIZADOR */
+function visualizarProduto(img){
+  const modal = document.getElementById("visualizadorProduto");
+  const imagem = document.getElementById("imgVisualizador");
+
+  if(!modal || !imagem) return;
+
+  imagem.src = img;
+  modal.classList.add("ativo");
+}
+
+function fecharVisualizador(){
+  const modal = document.getElementById("visualizadorProduto");
+  if(modal) modal.classList.remove("ativo");
+}
+
 /* 🎮 INICIAR JOGO */
 function entrarJogo(){
   document.getElementById("telaInicial").style.display = "none";
@@ -281,4 +306,8 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("bau").onclick = abrirBau;
   document.getElementById("inventarioHUD").onclick = abrirInventario;
   document.getElementById("btnFinalizar").onclick = finalizarPedido;
+
+  /* 👁️ FECHAR VISUALIZADOR */
+  const fecharBtn = document.getElementById("fecharVisualizador");
+  if(fecharBtn) fecharBtn.onclick = fecharVisualizador;
 });
