@@ -2,6 +2,9 @@ let moedas = 0;
 let inventario = [];
 let bauAberto = false;
 
+/* 🎒 NOVO INVENTÁRIO (SLOTS MINECRAFT) */
+let slots = [];
+
 const lojas = {
   camisas: [
     { nome: "Camisa Anime", img: "img/camisa-anime.jpg", preco: 60 },
@@ -27,13 +30,14 @@ const lojas = {
 /* 🔔 NOTIFICAÇÕES */
 function mostrarNotificacao(texto){
   const container = document.getElementById("notificacoes");
+
   const div = document.createElement("div");
   div.classList.add("notificacao");
   div.innerText = texto;
 
   container.appendChild(div);
 
-  setTimeout(()=> div.remove(), 2500);
+  setTimeout(() => div.remove(), 2500);
 }
 
 /* 💰 MOEDAS */
@@ -70,6 +74,7 @@ function abrirLoja(nome){
   menu.classList.add("ativo");
 }
 
+/* 🛒 COMPRA + INVENTÁRIO */
 function comprarProduto(produto){
 
   if(moedas < produto.preco){
@@ -78,20 +83,72 @@ function comprarProduto(produto){
   }
 
   moedas -= produto.preco;
+
+  // inventário normal (já existente)
   inventario.push(produto);
 
   atualizarMoedas();
   atualizarInventario();
 
+  // 🎒 NOVO: adiciona nos slots estilo Minecraft
+  adicionarAoSlot(produto);
+
   mostrarNotificacao(`🛒 Comprou: ${produto.nome}`);
 }
 
+/* 🧱 SISTEMA DE SLOTS (MINECRAFT) */
+function adicionarAoSlot(produto){
+
+  let item = slots.find(i => i.nome === produto.nome);
+
+  if(item){
+    item.qtd++;
+  } else {
+
+    if(slots.length >= 5){
+      mostrarNotificacao("🎒 Inventário cheio!");
+      return;
+    }
+
+    slots.push({
+      nome: produto.nome,
+      img: produto.img,
+      qtd: 1
+    });
+  }
+
+  renderSlots();
+}
+
+/* 🎨 RENDER DOS SLOTS */
+function renderSlots(){
+
+  const container = document.getElementById("inventarioSlots");
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  slots.forEach(item => {
+
+    const div = document.createElement("div");
+    div.classList.add("slot");
+
+    div.innerHTML = `
+      <img src="${item.img}">
+      <div class="qtd">x${item.qtd}</div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+/* ❌ FECHAR LOJA */
 function fecharLoja(){
   document.getElementById("menuLoja").classList.remove("ativo");
   document.getElementById("mapa").classList.remove("blur");
 }
 
-/* 🎒 INVENTÁRIO */
+/* 🎒 INVENTÁRIO ANTIGO (LISTA DETALHADA) */
 function atualizarInventario(){
 
   const lista = document.getElementById("listaInventario");
@@ -119,30 +176,47 @@ function atualizarInventario(){
   totalDiv.innerText = "Total: 💰 " + total;
 }
 
+/* ❌ REMOVER ITEM */
 function removerItem(index){
 
-  moedas += inventario[index].preco;
-  const nome = inventario[index].nome;
+  const itemRemovido = inventario[index];
 
+  moedas += itemRemovido.preco;
+  const nome = itemRemovido.nome;
+
+  // remove do inventário principal
   inventario.splice(index, 1);
+
+  // 🧱 remove ou reduz do inventário em slots
+  const slotIndex = slots.findIndex(s => s.nome === nome);
+
+  if(slotIndex !== -1){
+
+    slots[slotIndex].qtd--;
+
+    if(slots[slotIndex].qtd <= 0){
+      slots.splice(slotIndex, 1);
+    }
+  }
 
   atualizarMoedas();
   atualizarInventario();
+  renderSlots();
 
   mostrarNotificacao(`💰 Removeu: ${nome}`);
 }
-
+/* 🎒 ABRIR INVENTÁRIO */
 function abrirInventario(){
-  const box = document.getElementById("inventarioBox");
-  box.classList.add("ativo");
+  document.getElementById("inventarioBox").classList.add("ativo");
   atualizarInventario();
 }
 
+/* 🎒 FECHAR INVENTÁRIO */
 function fecharInventario(){
   document.getElementById("inventarioBox").classList.remove("ativo");
 }
 
-/* 📲 WHATSAPP */
+/* 📲 FINALIZAR PEDIDO */
 function finalizarPedido(){
 
   if(inventario.length === 0){
@@ -174,13 +248,13 @@ function abrirBau(){
     bauAberto = true;
 
     atualizarMoedas();
-    mostrarNotificacao("Você ganhou 200 moedas!");
+    mostrarNotificacao("🎁 Você ganhou 200 moedas!");
   } else {
     mostrarNotificacao("🪙 Baú já foi aberto!");
   }
 }
 
-/* 🎮 JOGO */
+/* 🎮 INICIAR JOGO */
 function entrarJogo(){
   document.getElementById("telaInicial").style.display = "none";
 }
@@ -190,6 +264,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   atualizarMoedas();
   atualizarInventario();
+  renderSlots();
 
   const bind = (id, nome) => {
     const el = document.getElementById(id);
