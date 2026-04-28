@@ -42,8 +42,10 @@ html, body{
   transform:translateX(-50%);
   width:90%;
   height:40px;
+
   background:url("img/bandeiras.png") repeat-x;
   background-size:contain;
+
   animation: vento 2s ease-in-out infinite alternate;
   z-index:2;
   pointer-events:none;
@@ -67,8 +69,10 @@ html, body{
   position:absolute;
   width:100%;
   height:100%;
+
   background:radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px);
   background-size:50px 50px;
+
   animation: subir 15s linear infinite;
 }
 
@@ -77,27 +81,33 @@ html, body{
   to   { transform:translateY(-300px); }
 }
 
-/* 🏪 LOJAS RESPONSIVAS */
+/* 🏪 LOJAS */
 #lojasContainer{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%, -50%);
+
   width:90%;
   max-width:520px;
+
   display:grid;
   grid-template-columns:repeat(3, 1fr);
   gap:20px;
+
   z-index:10;
 }
 
 .loja{
   width:100%;
   aspect-ratio:1/1;
+
   background-size:contain;
   background-repeat:no-repeat;
   background-position:center;
+
   cursor:pointer;
+
   animation: idle 3s ease-in-out infinite;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
@@ -128,8 +138,10 @@ html, body{
   height:120px;
   left:10px;
   top:50px;
+
   background:url("img/bau.png") no-repeat center;
   background-size:contain;
+
   cursor:pointer;
   z-index:20;
 }
@@ -143,12 +155,15 @@ html, body{
   position:absolute;
   top:10px;
   left:10px;
+
   background:rgba(0,0,0,0.7);
   backdrop-filter: blur(4px);
+
   color:#ffd700;
   padding:8px 14px;
   border:2px solid #ffd700;
   border-radius:8px;
+
   z-index:50;
 }
 
@@ -156,12 +171,15 @@ html, body{
   position:absolute;
   top:10px;
   right:10px;
+
   background:rgba(0,0,0,0.7);
   backdrop-filter: blur(4px);
+
   color:#fff;
   padding:8px 14px;
   border:2px solid #7a2cff;
   border-radius:8px;
+
   cursor:pointer;
   z-index:50;
 }
@@ -176,15 +194,19 @@ html, body{
   top:50%;
   left:50%;
   transform:translate(-50%,-60%) scale(0.9);
+
   width:360px;
   max-width:90%;
+
   background:#000;
   color:#fff;
   border:3px solid #7a2cff;
   border-radius:10px;
   padding:18px;
+
   display:none;
   opacity:0;
+
   z-index:200;
   transition:0.25s;
 }
@@ -195,6 +217,7 @@ html, body{
   transform:translate(-50%,-50%) scale(1);
 }
 
+/* BOTÕES LOJA */
 #opcoesLoja button{
   width:100%;
   margin:6px 0;
@@ -202,12 +225,13 @@ html, body{
   display:flex;
   align-items:center;
   gap:10px;
+
   background:#7a2cff;
   border:none;
   color:#fff;
   border-radius:6px;
+
   cursor:pointer;
-  transition:0.2s;
 }
 
 #opcoesLoja img{
@@ -217,22 +241,28 @@ html, body{
   border-radius:6px;
 }
 
-/* 🎒 INVENTÁRIO / PEDIDO */
+/* 🎒 INVENTÁRIO */
 #inventarioBox{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%) scale(0.95);
+
   width:400px;
   max-width:90%;
+
   background:rgba(15,15,15,0.95);
   backdrop-filter: blur(6px);
+
   color:#fff;
   border:3px solid #7a2cff;
   border-radius:12px;
+
   padding:20px;
   display:none;
+
   z-index:200;
+
   opacity:0;
   transition:0.25s;
 }
@@ -243,7 +273,7 @@ html, body{
   transform:translate(-50%,-50%) scale(1);
 }
 
-/* LISTA */
+/* LISTA INVENTÁRIO */
 #listaInventario{
   margin:15px 0;
   display:flex;
@@ -254,6 +284,7 @@ html, body{
   padding-right:5px;
 }
 
+/* SCROLL */
 #listaInventario::-webkit-scrollbar{
   width:6px;
 }
@@ -263,21 +294,18 @@ html, body{
   border-radius:10px;
 }
 
+/* ITEM */
 .itemInventario{
   display:flex;
   justify-content:space-between;
   align-items:center;
+
   background:#1a1a1a;
   padding:10px;
   border-radius:8px;
-  transition:0.2s;
 }
 
-.itemInventario:hover{
-  transform:scale(1.02);
-  background:#222;
-}
-
+/* BOTÃO REMOVER */
 .itemInventario button{
   background:#ff4d4d;
   border:none;
@@ -285,13 +313,9 @@ html, body{
   cursor:pointer;
   padding:5px 10px;
   border-radius:6px;
-  transition:0.2s;
 }
 
-.itemInventario button:hover{
-  background:#ff6666;
-}
-
+/* TOTAL */
 #totalPedido{
   margin:10px 0;
   font-weight:bold;
@@ -299,6 +323,7 @@ html, body{
   text-align:center;
 }
 
+/* BOTÃO FINALIZAR */
 #btnFinalizar{
   width:100%;
   padding:12px;
@@ -308,12 +333,6 @@ html, body{
   font-weight:bold;
   cursor:pointer;
   border-radius:8px;
-  margin-bottom:10px;
-  transition:0.2s;
-}
-
-#btnFinalizar:hover{
-  transform:scale(1.03);
 }
 
 /* 🔔 NOTIFICAÇÕES */
@@ -326,25 +345,13 @@ html, body{
   flex-direction:column;
   gap:10px;
   z-index:9999;
-  pointer-events:none;
 }
 
 .notificacao{
   background:rgba(0,0,0,0.85);
   color:#ffd700;
   padding:12px 20px;
-  border:2px solid #ffd700;
   border-radius:8px;
-  opacity:0;
-  transform:translateY(20px);
-  animation: subirFade 0.4s ease forwards;
-}
-
-@keyframes subirFade{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
 }
 
 /* 🎮 TELA INICIAL */
@@ -367,7 +374,15 @@ html, body{
   cursor:pointer;
 }
 
-/* 🖥️ DESKTOP: slots na lateral direita */
+/* 📱 DESKTOP EXTRA */
+@media (min-width:1200px){
+  #lojasContainer{
+    max-width:900px;
+    gap:30px;
+  }
+}
+
+/* 🎒 INVENTÁRIO MINECRAFT */
 #inventarioSlots{
   position:fixed;
   right:10px;
@@ -385,16 +400,15 @@ html, body{
   background:rgba(0,0,0,0.6);
   border:2px solid #7a2cff;
   border-radius:8px;
-  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
+  position:relative;
 }
 
 .slot img{
   width:80%;
   height:80%;
-  object-fit:contain;
 }
 
 .qtd{
@@ -405,117 +419,39 @@ html, body{
   font-size:12px;
 }
 
-/* 📱 MOBILE (telas verticais até 768px) */
+/* 📱 MOBILE FINAL CORRIGIDO */
 @media (max-width: 768px) {
 
-  /* Grid das lojas: centralizado e um pouco mais compacto */
   #lojasContainer {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    width: 90%;
-    max-width: 360px;
-    top: 45%;          /* ajuste para equilíbrio visual */
-    left: 50%;
-    transform: translate(-50%, -45%);
+    grid-template-columns:repeat(2, 1fr);
+    gap:15px;
+    width:85%;
+    max-width:340px;
+    top:45%;
+    left:50%;
+    transform:translate(-50%, -45%);
   }
 
-  .loja {
-    aspect-ratio: 1 / 1;
-    max-width: 165px;
-    margin: 0 auto;
-  }
-
-  /* Baú menor */
-  #bau {
-    width: 70px;
-    height: 70px;
-    left: 8px;
-    top: 50px;
-  }
-
-  /* HUDs compactas */
-  #moedasHUD {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    top: 8px;
-    left: 8px;
-  }
-
-  #inventarioHUD {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    top: 8px;
-    right: 8px;
-  }
-
-  /* Menus responsivos */
-  #menuLoja {
-    width: 90%;
-    max-width: 320px;
-    padding: 15px;
-  }
-
-  #opcoesLoja button {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-
-  #opcoesLoja img {
-    width: 30px;
-    height: 30px;
-  }
-
-  #inventarioBox {
-    width: 90%;
-    max-width: 340px;
-    padding: 15px;
-  }
-
-  .itemInventario {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  .notificacao {
-    font-size: 0.85rem;
-    padding: 8px 16px;
-  }
-
-  .botaoRPG {
-    padding: 10px 22px;
-    font-size: 1rem;
-  }
-
-  /* 🔥 SLOTS NO MOBILE: horizontal, centralizado na parte inferior */
   #inventarioSlots {
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: auto;
-    right: auto;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    grid-template-rows: none;   /* anula o layout vertical */
-    z-index: 100;
+    position:fixed;
+    bottom:15px;
+    left:50%;
+    top:auto;
+    right:auto;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:row;
+    gap:8px;
+    grid-template-rows:none;
   }
 
   .slot {
-    width: 50px;
-    height: 50px;
+    width:50px;
+    height:50px;
   }
 
   .slot img {
-    width: 70%;
-    height: 70%;
-  }
-}
-
-/* Telas muito grandes (opcional) */
-@media (min-width:1200px){
-  #lojasContainer{
-    max-width:900px;
-    gap:30px;
+    width:70%;
+    height:70%;
   }
 }
