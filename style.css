@@ -454,21 +454,50 @@ html, body{
 
 @media (max-width: 768px) {
 
+  /* Grid das lojas: centralizado verticalmente com leve folga */
   #lojasContainer {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    width: 90%;
-    max-width: 360px;
-
-    top: 50%; /* 🔥 antes era 55% → volta pra central e sobe levemente */
+    width: 85%;
+    max-width: 340px;
+    /* Centraliza na tela, mas evita o fundo onde estão os slots */
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -45%);
   }
 
-  .loja {
-    aspect-ratio: 1 / 1;
-    max-width: 165px;
-    margin: 0 auto;
+  /* Slots (inventário Minecraft) – fica na parte inferior direita */
+  #inventarioSlots {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    top: auto;
+    left: auto;
+    transform: none;
+    grid-template-rows: repeat(5, 50px);
+    gap: 6px;
+    z-index: 100;
   }
 
+  .slot {
+    width: 50px;
+    height: 50px;
+  }
+
+  .slot img {
+    width: 70%;
+    height: 70%;
+  }
+
+  /* Baú um pouco menor para não atrapalhar o grid */
+  #bau {
+    width: 70px;
+    height: 70px;
+    left: 8px;
+    top: 50px;
+  }
+
+  /* HUDs um pouco mais compactas */
   #moedasHUD {
     font-size: 0.9rem;
     padding: 6px 12px;
@@ -483,13 +512,7 @@ html, body{
     right: 8px;
   }
 
-  #bau {
-    width: 70px;
-    height: 70px;
-    left: 8px;
-    top: 50px;
-  }
-
+  /* Menus e notificações responsivos */
   #menuLoja {
     width: 90%;
     max-width: 320px;
