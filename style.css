@@ -407,11 +407,87 @@ html, body{
   cursor:pointer;
 }
 
-/* 📱 MOBILE */
-@media (max-width:768px){
+/* 📱 MOBILE - VERTICAL (CELULAR) */
+@media (max-width: 768px) {
 
-  #lojasContainer{
-    grid-template-columns:repeat(2, 1fr);
+  /* Container das lojas: 2 colunas, 3 linhas automáticas */
+  #lojasContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 90%;
+    max-width: 360px;  /* limita tamanho máximo */
+    top: 55%;          /* centraliza um pouco mais para baixo se necessário */
   }
 
+  /* As lojas ficam quadradas e com tamanho confortável */
+  .loja {
+    aspect-ratio: 1 / 1;
+    max-width: 150px;
+    margin: 0 auto;
+  }
+
+  /* HUD: moedas e inventário mais discretos */
+  #moedasHUD {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    top: 8px;
+    left: 8px;
+  }
+
+  #inventarioHUD {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    top: 8px;
+    right: 8px;
+  }
+
+  /* Baú um pouco menor */
+  #bau {
+    width: 50px;
+    height: 50px;
+    left: 8px;
+    top: 70px; /* abaixo do HUD */
+  }
+
+  /* Menu da loja ocupa quase toda tela, mas com boa margem */
+  #menuLoja {
+    width: 90%;
+    max-width: 320px;
+    padding: 15px;
+  }
+
+  /* Itens da loja (botões) */
+  #opcoesLoja button {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  #opcoesLoja img {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Inventário */
+  #inventarioBox {
+    width: 90%;
+    max-width: 340px;
+    padding: 15px;
+  }
+
+  .itemInventario {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Notificações menores */
+  .notificacao {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+
+  /* Tela inicial: botão adaptado */
+  .botaoRPG {
+    padding: 10px 22px;
+    font-size: 1rem;
+  }
 }
