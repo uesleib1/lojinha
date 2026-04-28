@@ -174,7 +174,7 @@ function abrirBau(){
     bauAberto = true;
 
     atualizarMoedas();
-    mostrarNotificacao("🎁 Você ganhou 200 moedas!");
+    mostrarNotificacao("Você ganhou 200 moedas!");
   } else {
     mostrarNotificacao("🪙 Baú já foi aberto!");
   }
