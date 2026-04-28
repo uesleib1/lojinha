@@ -1,465 +1,436 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html, body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#000;
-  font-family:Arial, sans-serif;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: Arial, sans-serif;
 }
 
 /* 🎮 GAME */
-#game{
-  width:100vw;
-  height:100vh;
-  position:relative;
+#game {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
 /* 🗺️ MAPA */
-#mapa{
-  position:absolute;
-  inset:0;
-  background:url("img/mapa.png") no-repeat center center;
-  background-size:cover;
-  overflow:hidden;
-  transition:0.3s;
+#mapa {
+  position: absolute;
+  inset: 0;
+  background: url("img/mapa.png") no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+  transition: 0.3s;
 }
 
 /* 🌫️ BLUR */
-#mapa.blur{
-  filter:blur(3px) brightness(0.7);
+#mapa.blur {
+  filter: blur(3px) brightness(0.7);
 }
 
 /* 🌬️ BANDEIRAS */
-.bandeiras{
-  position:absolute;
-  top:10px;
-  left:50%;
-  transform:translateX(-50%);
-  width:90%;
-  height:40px;
-
-  background:url("img/bandeiras.png") repeat-x;
-  background-size:contain;
-
+.bandeiras {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 40px;
+  background: url("img/bandeiras.png") repeat-x;
+  background-size: contain;
   animation: vento 2s ease-in-out infinite alternate;
-  z-index:2;
-  pointer-events:none;
+  z-index: 2;
+  pointer-events: none;
 }
 
-@keyframes vento{
-  from { transform:translateX(-50%) rotate(-1deg); }
-  to   { transform:translateX(-50%) rotate(1deg); }
+@keyframes vento {
+  from { transform: translateX(-50%) rotate(-1deg); }
+  to { transform: translateX(-50%) rotate(1deg); }
 }
 
 /* ✨ PARTÍCULAS */
-.particulas{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
+.particulas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.particulas::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-
-  background:radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px);
-  background-size:50px 50px;
-
+.particulas::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px);
+  background-size: 50px 50px;
   animation: subir 15s linear infinite;
 }
 
-@keyframes subir{
-  from { transform:translateY(0); }
-  to   { transform:translateY(-300px); }
+@keyframes subir {
+  from { transform: translateY(0); }
+  to { transform: translateY(-300px); }
 }
 
 /* 🏪 LOJAS */
-#lojasContainer{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-
-  width:90%;
-  max-width:520px;
-
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:20px;
-
-  z-index:10;
+#lojasContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 520px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  z-index: 10;
 }
 
-.loja{
-  width:100%;
-  aspect-ratio:1/1;
-
-  background-size:contain;
-  background-repeat:no-repeat;
-  background-position:center;
-
-  cursor:pointer;
-
+.loja {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
   animation: idle 3s ease-in-out infinite;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-@keyframes idle{
-  0% { transform:scale(1); }
-  50% { transform:scale(1.02); }
-  100% { transform:scale(1); }
+@keyframes idle {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
 
-.loja:hover{
-  transform:scale(1.08);
-  filter:brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.5));
+.loja:hover {
+  transform: scale(1.08);
+  filter: brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.5));
 }
 
-/* 🖼️ LOJAS */
-#lojaCamisas{ background-image:url("img/lojas/camisas.png"); }
-#lojaCanecas{ background-image:url("img/lojas/canecas.png"); }
-#lojaChaveiros{ background-image:url("img/lojas/chaveiros.png"); }
-#lojaQuadros{ background-image:url("img/lojas/quadros.png"); }
-#lojaEcobags{ background-image:url("img/lojas/ecobags.png"); }
-#lojaComidas{ background-image:url("img/lojas/comidas.png"); }
+/* 🖼️ IMAGENS DAS LOJAS */
+#lojaCamisas { background-image: url("img/lojas/camisas.png"); }
+#lojaCanecas { background-image: url("img/lojas/canecas.png"); }
+#lojaChaveiros { background-image: url("img/lojas/chaveiros.png"); }
+#lojaQuadros { background-image: url("img/lojas/quadros.png"); }
+#lojaEcobags { background-image: url("img/lojas/ecobags.png"); }
+#lojaComidas { background-image: url("img/lojas/comidas.png"); }
 
-/* 🎁 BAÚ */
-#bau{
-  position:absolute;
-  width:120px;
-  height:120px;
-  left:10px;
-  top:50px;
-
-  background:url("img/bau.png") no-repeat center;
-  background-size:contain;
-
-  cursor:pointer;
-  z-index:20;
+/* 🎁 BAÚ (Desktop) */
+#bau {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  left: 10px;
+  top: 50px;
+  background: url("img/bau.png") no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.2s;
 }
 
-#bau:hover{
-  transform:scale(1.1);
+#bau:hover {
+  transform: scale(1.1);
 }
 
 /* 💰 HUD */
-#moedasHUD{
-  position:absolute;
-  top:10px;
-  left:10px;
-
-  background:rgba(0,0,0,0.7);
+#moedasHUD {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.7);
   backdrop-filter: blur(4px);
-
-  color:#ffd700;
-  padding:8px 14px;
-  border:2px solid #ffd700;
-  border-radius:8px;
-
-  z-index:50;
+  color: #ffd700;
+  padding: 8px 14px;
+  border: 2px solid #ffd700;
+  border-radius: 8px;
+  z-index: 50;
 }
 
-#inventarioHUD{
-  position:absolute;
-  top:10px;
-  right:10px;
-
-  background:rgba(0,0,0,0.7);
+#inventarioHUD {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.7);
   backdrop-filter: blur(4px);
-
-  color:#fff;
-  padding:8px 14px;
-  border:2px solid #7a2cff;
-  border-radius:8px;
-
-  cursor:pointer;
-  z-index:50;
+  color: #fff;
+  padding: 8px 14px;
+  border: 2px solid #7a2cff;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 50;
+  transition: transform 0.2s;
 }
 
-#inventarioHUD:hover{
-  transform:scale(1.05);
+#inventarioHUD:hover {
+  transform: scale(1.05);
 }
 
 /* 🏪 MENU LOJA */
-#menuLoja{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-60%) scale(0.9);
-
-  width:360px;
-  max-width:90%;
-
-  background:#000;
-  color:#fff;
-  border:3px solid #7a2cff;
-  border-radius:10px;
-  padding:18px;
-
-  display:none;
-  opacity:0;
-
-  z-index:200;
-  transition:0.25s;
+#menuLoja {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(0.9);
+  width: 360px;
+  max-width: 90%;
+  background: #000;
+  color: #fff;
+  border: 3px solid #7a2cff;
+  border-radius: 10px;
+  padding: 18px;
+  display: none;
+  opacity: 0;
+  z-index: 200;
+  transition: 0.25s;
 }
 
-#menuLoja.ativo{
-  display:block;
-  opacity:1;
-  transform:translate(-50%,-50%) scale(1);
+#menuLoja.ativo {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* BOTÕES LOJA */
-#opcoesLoja button{
-  width:100%;
-  margin:6px 0;
-  padding:10px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  background:#7a2cff;
-  border:none;
-  color:#fff;
-  border-radius:6px;
-
-  cursor:pointer;
+#opcoesLoja button {
+  width: 100%;
+  margin: 6px 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #7a2cff;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-#opcoesLoja img{
-  width:40px;
-  height:40px;
-  background:#fff;
-  border-radius:6px;
+#opcoesLoja img {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 6px;
 }
 
-/* 🎒 INVENTÁRIO */
-#inventarioBox{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) scale(0.95);
-
-  width:400px;
-  max-width:90%;
-
-  background:rgba(15,15,15,0.95);
+/* 🎒 INVENTÁRIO (modal) */
+#inventarioBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 400px;
+  max-width: 90%;
+  background: rgba(15,15,15,0.95);
   backdrop-filter: blur(6px);
-
-  color:#fff;
-  border:3px solid #7a2cff;
-  border-radius:12px;
-
-  padding:20px;
-  display:none;
-
-  z-index:200;
-
-  opacity:0;
-  transition:0.25s;
+  color: #fff;
+  border: 3px solid #7a2cff;
+  border-radius: 12px;
+  padding: 20px;
+  display: none;
+  z-index: 200;
+  opacity: 0;
+  transition: 0.25s;
 }
 
-#inventarioBox.ativo{
-  display:block;
-  opacity:1;
-  transform:translate(-50%,-50%) scale(1);
+#inventarioBox.ativo {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-/* LISTA INVENTÁRIO */
-#listaInventario{
-  margin:15px 0;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  max-height:250px;
-  overflow-y:auto;
-  padding-right:5px;
+#listaInventario {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
-/* SCROLL */
-#listaInventario::-webkit-scrollbar{
-  width:6px;
+#listaInventario::-webkit-scrollbar {
+  width: 6px;
 }
 
-#listaInventario::-webkit-scrollbar-thumb{
-  background:#7a2cff;
-  border-radius:10px;
+#listaInventario::-webkit-scrollbar-thumb {
+  background: #7a2cff;
+  border-radius: 10px;
 }
 
-/* ITEM */
-.itemInventario{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  background:#1a1a1a;
-  padding:10px;
-  border-radius:8px;
+.itemInventario {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-/* BOTÃO REMOVER */
-.itemInventario button{
-  background:#ff4d4d;
-  border:none;
-  color:#fff;
-  cursor:pointer;
-  padding:5px 10px;
-  border-radius:6px;
+.itemInventario button {
+  background: #ff4d4d;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
 }
 
-/* TOTAL */
-#totalPedido{
-  margin:10px 0;
-  font-weight:bold;
-  color:#ffd700;
-  text-align:center;
+#totalPedido {
+  margin: 10px 0;
+  font-weight: bold;
+  color: #ffd700;
+  text-align: center;
 }
 
-/* BOTÃO FINALIZAR */
-#btnFinalizar{
-  width:100%;
-  padding:12px;
-  background:#25D366;
-  border:none;
-  color:#fff;
-  font-weight:bold;
-  cursor:pointer;
-  border-radius:8px;
+#btnFinalizar {
+  width: 100%;
+  padding: 12px;
+  background: #25D366;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
 /* 🔔 NOTIFICAÇÕES */
-#notificacoes{
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  z-index:9999;
+#notificacoes {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
 }
 
-.notificacao{
-  background:rgba(0,0,0,0.85);
-  color:#ffd700;
-  padding:12px 20px;
-  border-radius:8px;
+.notificacao {
+  background: rgba(0,0,0,0.85);
+  color: #ffd700;
+  padding: 12px 20px;
+  border-radius: 8px;
 }
 
 /* 🎮 TELA INICIAL */
-#telaInicial{
-  position:fixed;
-  inset:0;
-  background:url("img/inicio.jpg") center/cover no-repeat;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
+#telaInicial {
+  position: fixed;
+  inset: 0;
+  background: url("img/inicio.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-.botaoRPG{
-  padding:12px 26px;
-  background:linear-gradient(180deg,#8b5a2b,#5a3218);
-  color:#f2d7a0;
-  border:3px solid #d6b36a;
-  border-radius:8px;
-  cursor:pointer;
+.botaoRPG {
+  padding: 12px 26px;
+  background: linear-gradient(180deg, #8b5a2b, #5a3218);
+  color: #f2d7a0;
+  border: 3px solid #d6b36a;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-/* 📱 DESKTOP EXTRA */
-@media (min-width:1200px){
-  #lojasContainer{
-    max-width:900px;
-    gap:30px;
-  }
+/* 🎒 INVENTÁRIO SLOTS (estilo Minecraft) */
+#inventarioSlots {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  grid-template-rows: repeat(5, 60px);
+  gap: 8px;
+  z-index: 999;
 }
 
-/* 🎒 INVENTÁRIO MINECRAFT */
-#inventarioSlots{
-  position:fixed;
-  right:10px;
-  top:50%;
-  transform:translateY(-50%);
-  display:grid;
-  grid-template-rows:repeat(5,60px);
-  gap:8px;
-  z-index:999;
+.slot {
+  width: 60px;
+  height: 60px;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid #7a2cff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.slot{
-  width:60px;
-  height:60px;
-  background:rgba(0,0,0,0.6);
-  border:2px solid #7a2cff;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
+.slot img {
+  width: 80%;
+  height: 80%;
 }
 
-.slot img{
-  width:80%;
-  height:80%;
+.qtd {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  color: #ffd700;
+  font-size: 12px;
 }
 
-.qtd{
-  position:absolute;
-  bottom:2px;
-  right:4px;
-  color:#ffd700;
-  font-size:12px;
-}
-
-/* 📱 MOBILE FINAL CORRIGIDO */
-@media (max-width: 768px) {
-
+/* 📱 DESKTOP EXTRA (telas grandes) */
+@media (min-width: 1200px) {
   #lojasContainer {
-    grid-template-columns:repeat(2, 1fr);
-    gap:15px;
-    width:85%;
-    max-width:340px;
-    top:45%;
-    left:50%;
-    transform:translate(-50%, -45%);
+    max-width: 900px;
+    gap: 30px;
+  }
+}
+
+/* 📱 MOBILE – AJUSTES FINAIS (CORRIGIDO) */
+@media (max-width: 768px) {
+  /* Lojas: 2 colunas e reposicionadas levemente */
+  #lojasContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 85%;
+    max-width: 340px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -45%);
   }
 
+  /* Inventário slots: horizontal embaixo */
   #inventarioSlots {
-    position:fixed;
-    bottom:15px;
-    left:50%;
-    top:auto;
-    right:auto;
-    transform:translateX(-50%);
-    display:flex;
-    flex-direction:row;
-    gap:8px;
-    grid-template-rows:none;
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    top: auto;
+    right: auto;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    grid-template-rows: none;
   }
 
   .slot {
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
   }
 
   .slot img {
-    width:70%;
-    height:70%;
+    width: 70%;
+    height: 70%;
   }
 
-  /* Baú menor */
+  /* 🎁 BAÚ NO MOBILE: tamanho clicável (50px) – NÃO quebra funções */
   #bau {
-    width: 20px;
-    height: 20px;
-    left: 8px;
+    width: 50px;      /* antes 20px era muito pequeno */
+    height: 50px;
+    left: 10px;
     top: 50px;
+  }
+
+  /* Garante que nenhuma div essencial suma ou fique sem pointer-events */
+  #telaInicial, #mapa, #game, #menuLoja, #inventarioBox {
+    pointer-events: auto;
   }
 }
