@@ -416,7 +416,7 @@ html, body{
     gap: 15px;
     width: 90%;
     max-width: 360px;  /* limita tamanho máximo */
-    top: 55%;          /* centraliza um pouco mais para baixo se necessário */
+    top: 40%;          /* centraliza um pouco mais para baixo se necessário */
   }
 
   /* As lojas ficam quadradas e com tamanho confortável */
