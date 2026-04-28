@@ -1,71 +1,61 @@
-
-/* =========================
-   🎮 ESTADO DO JOGO
-========================= */
-
 let moedas = 0;
 let inventario = [];
 let bauAberto = false;
-
-/* =========================
-   🏪 CATÁLOGO DAS LOJAS
-========================= */
 
 const lojas = {
   camisas: [
     { nome: "Camisa Anime", img: "img/camisa-anime.jpg", preco: 60 },
     { nome: "Camisa Idols", img: "img/camisa-idols.jpg", preco: 60 }
   ],
-
   canecas: [
     { nome: "Caneca Anime", img: "img/caneca-anime.jpg", preco: 30 }
   ],
-
   chaveiros: [
     { nome: "Chaveiro Anime", img: "img/chaveiro-anime.jpg", preco: 10 }
   ],
-
   quadros: [
     { nome: "Quadro Geek", img: "img/quadro-geek.jpg", preco: 80 }
   ],
-
   ecobags: [
     { nome: "Ecobag Anime", img: "img/ecobag-anime.jpg", preco: 30 }
   ],
-
   comidas: [
     { nome: "Doces Geek", img: "img/doces.jpg", preco: 20 }
   ]
 };
 
-/* =========================
-   💰 MOEDAS HUD
-========================= */
+/* ================= 🔔 NOTIFICAÇÕES ================= */
+function mostrarNotificacao(texto){
+  const container = document.getElementById("notificacoes");
+  const div = document.createElement("div");
+  div.classList.add("notificacao");
+  div.innerText = texto;
 
-function atualizarMoedas(){
-  const hud = document.getElementById("moedasHUD");
-  if(hud){
-    hud.innerText = "💰 " + moedas;
-  }
+  container.appendChild(div);
+
+  setTimeout(()=>{
+    div.remove();
+  }, 2500);
 }
 
-/* =========================
-   🏪 ABRIR LOJA
-========================= */
+/* ================= 💰 MOEDAS ================= */
+function atualizarMoedas(){
+  document.getElementById("moedasHUD").innerText = "💰 " + moedas;
+}
 
+/* ================= 🏪 LOJAS ================= */
 function abrirLoja(nome){
+
+  document.getElementById("mapa").classList.add("blur");
 
   const menu = document.getElementById("menuLoja");
   const titulo = document.getElementById("tituloLoja");
   const opcoes = document.getElementById("opcoesLoja");
 
-  if(!menu || !titulo || !opcoes) return;
-
   titulo.innerText = nome.toUpperCase();
   opcoes.innerHTML = "";
 
-  const preview = document.getElementById("produtoPreview");
-  if(preview) preview.style.display = "none";
+  document.getElementById("produtoPreview").style.display = "none";
 
   lojas[nome].forEach(produto => {
 
@@ -81,17 +71,13 @@ function abrirLoja(nome){
     opcoes.appendChild(btn);
   });
 
-  menu.style.display = "block";
+  menu.classList.add("ativo");
 }
-
-/* =========================
-   🛒 COMPRA
-========================= */
 
 function comprarProduto(produto){
 
   if(moedas < produto.preco){
-    alert("💸 Você não tem moedas suficientes!");
+    mostrarNotificacao("💸 Moedas insuficientes!");
     return;
   }
 
@@ -103,36 +89,34 @@ function comprarProduto(produto){
 
   const preview = document.getElementById("produtoPreview");
 
-  if(preview){
-    preview.style.display = "block";
-    document.getElementById("nomeProduto").innerText = produto.nome;
-    document.getElementById("imagemProduto").src = produto.img;
-  }
-}
+  preview.style.display = "block";
+  document.getElementById("nomeProduto").innerText = produto.nome;
+  document.getElementById("imagemProduto").src = produto.img;
 
-/* =========================
-   ❌ FECHAR LOJA
-========================= */
+  mostrarNotificacao(`🛒 Comprou: ${produto.nome}`);
+}
 
 function fecharLoja(){
-  const menu = document.getElementById("menuLoja");
-  if(menu) menu.style.display = "none";
+  document.getElementById("menuLoja").classList.remove("ativo");
+  document.getElementById("mapa").classList.remove("blur");
 }
 
-/* =========================
-   🎒 INVENTÁRIO
-========================= */
-
+/* ================= 🎒 INVENTÁRIO ================= */
 function atualizarInventario(){
 
   const lista = document.getElementById("listaInventario");
-  if(!lista) return;
+  const totalDiv = document.getElementById("totalPedido");
 
   lista.innerHTML = "";
 
+  let total = 0;
+
   inventario.forEach((item, index) => {
 
+    total += item.preco;
+
     const div = document.createElement("div");
+    div.classList.add("itemInventario");
 
     div.innerHTML = `
       <span>${item.nome} - 💰 ${item.preco}</span>
@@ -141,73 +125,84 @@ function atualizarInventario(){
 
     lista.appendChild(div);
   });
-}
 
-/* =========================
-   ❌ REMOVER ITEM
-========================= */
+  totalDiv.innerText = "Total: 💰 " + total;
+}
 
 function removerItem(index){
 
   moedas += inventario[index].preco;
+  const nome = inventario[index].nome;
+
   inventario.splice(index, 1);
 
   atualizarMoedas();
   atualizarInventario();
+
+  mostrarNotificacao(`💰 Removeu: ${nome}`);
 }
 
-/* =========================
-   🎒 INVENTÁRIO ABRIR / FECHAR
-========================= */
-
 function abrirInventario(){
-  const box = document.getElementById("inventarioBox");
-  if(box){
-    box.style.display = "block";
-    atualizarInventario();
-  }
+  document.getElementById("inventarioBox").style.display = "block";
+  atualizarInventario();
 }
 
 function fecharInventario(){
-  const box = document.getElementById("inventarioBox");
-  if(box) box.style.display = "none";
+  document.getElementById("inventarioBox").style.display = "none";
 }
 
-/* =========================
-   🎁 BAÚ
-========================= */
+/* ================= 📲 WHATSAPP ================= */
+function finalizarPedido(){
 
+  if(inventario.length === 0){
+    mostrarNotificacao("🛒 Seu carrinho está vazio!");
+    return;
+  }
+
+  let mensagem = "🧾 *Pedido Feira Geek*%0A%0A";
+
+  let total = 0;
+
+  inventario.forEach(item => {
+    mensagem += `• ${item.nome} - R$ ${item.preco}%0A`;
+    total += item.preco;
+  });
+
+  mensagem += `%0A💰 Total: R$ ${total}`;
+
+  const numero = "5599999999999"; // 👈 TROCAR
+
+  const url = `https://wa.me/${numero}?text=${mensagem}`;
+
+  window.open(url, "_blank");
+}
+
+/* ================= 🎁 BAÚ ================= */
 function abrirBau(){
 
   if(!bauAberto){
     moedas += 200;
     bauAberto = true;
+
     atualizarMoedas();
-    alert("🎁 Você ganhou 200 moedas!");
+
+    mostrarNotificacao("🎁 Você ganhou 200 moedas!");
   } else {
-    alert("🪙 Baú já foi aberto!");
+    mostrarNotificacao("🪙 Baú já foi aberto!");
   }
 }
 
-/* =========================
-   🚀 ENTRAR NO JOGO
-========================= */
-
+/* ================= 🎮 JOGO ================= */
 function entrarJogo(){
-  const tela = document.getElementById("telaInicial");
-  if(tela) tela.style.display = "none";
+  document.getElementById("telaInicial").style.display = "none";
 }
 
-/* =========================
-   🎯 INICIALIZAÇÃO SEGURA
-========================= */
-
+/* ================= 🚀 INIT ================= */
 window.addEventListener("DOMContentLoaded", () => {
 
   atualizarMoedas();
   atualizarInventario();
 
-  /* 🏪 LOJAS (GRID CLICK) */
   const bind = (id, nome) => {
     const el = document.getElementById(id);
     if(el) el.onclick = () => abrirLoja(nome);
@@ -220,11 +215,7 @@ window.addEventListener("DOMContentLoaded", () => {
   bind("lojaEcobags", "ecobags");
   bind("lojaComidas", "comidas");
 
-  /* 🎁 BAÚ */
-  const bau = document.getElementById("bau");
-  if(bau) bau.onclick = abrirBau;
-
-  /* 🎒 INVENTÁRIO */
-  const inv = document.getElementById("inventarioHUD");
-  if(inv) inv.onclick = abrirInventario;
+  document.getElementById("bau").onclick = abrirBau;
+  document.getElementById("inventarioHUD").onclick = abrirInventario;
+  document.getElementById("btnFinalizar").onclick = finalizarPedido;
 });
