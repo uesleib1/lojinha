@@ -108,7 +108,7 @@ html, body{
 
   cursor:pointer;
 
-  animation: idle 2s ease-in-out infinite;
+  animation: idle 3s ease-in-out infinite;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
@@ -134,8 +134,8 @@ html, body{
 /* 🎁 BAÚ */
 #bau{
   position:absolute;
-  width:60px;
-  height:60px;
+  width:120px;
+  height:120px;
   left:10px;
   top:50px;
 
@@ -422,7 +422,7 @@ html, body{
   /* As lojas ficam quadradas e com tamanho confortável */
   .loja {
     aspect-ratio: 1 / 1;
-    max-width: 150px;
+    max-width: 170px;
     margin: 0 auto;
   }
 
@@ -443,10 +443,10 @@ html, body{
 
   /* Baú um pouco menor */
   #bau {
-    width: 50px;
-    height: 50px;
+    width: 90px;
+    height: 90px;
     left: 8px;
-    top: 70px; /* abaixo do HUD */
+    top: 50px; /* abaixo do HUD */
   }
 
   /* Menu da loja ocupa quase toda tela, mas com boa margem */
@@ -489,5 +489,12 @@ html, body{
   .botaoRPG {
     padding: 10px 22px;
     font-size: 1rem;
+  }
+}
+
+@media (min-width:1200px){
+  #lojasContainer{
+    max-width:900px;
+    gap:30px;
   }
 }
