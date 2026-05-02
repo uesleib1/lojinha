@@ -16,6 +16,11 @@
   <!-- 🆕 BOTÃO COMO IMAGEM -->
   <img src="img/btn-inicial.png" id="btnComecar" alt="Começar" onclick="entrarJogo()">
 
+  <!-- ÁUDIO DO JOGO -->
+  <audio id="somInicio" src="sounds/inicia.mp3" preload="auto"></audio>
+
+  <audio id="somBau" src="sounds/bau.mp3" preload="auto"></audio>
+
 </div>
 
 <div id="game">
@@ -24,7 +29,10 @@
 
     <div class="bandeiras"></div>
     <div class="particulas"></div>
+    
+    <!-- 🎁 BAÚ E BOTÃO DE COMBOS -->
     <div id="bau"></div>
+    <div id="btnCombos"></div> <!-- NOVO BOTÃO DE COMBOS -->
 
     <div id="lojasContainer">
       <div id="lojaCamisas" class="loja"></div>
@@ -62,6 +70,33 @@
 <div id="visualizadorProduto">
   <span id="fecharVisualizador">✖</span>
   <img id="imgVisualizador" src="">
+</div>
+
+<div id="popupBoasVindas">
+  <div id="popupConteudo">
+    <span id="fecharPopup">✖</span>
+    <div id="popupIcone">🎮</div>
+    <h2>Bem-vindo à Feira!</h2>
+    <p><strong style="color:#ffd700";>Dica importante:</strong></p>
+    <p>Abra o <strong style="color:#ffd700;">baú</strong> no canto superior esquerdo para ganhar <strong style="color:#ffd700;">500 moedas</strong>!</p>
+    <p>Depois, explore as lojas e monte seu pedido.</p>
+    <p>Divirta-se e aproveite os produtos geeks!</p>
+    <button id="btnEntendi">Entendi!</button>
+  </div>
+</div>
+
+<!-- 🧑 MODAL PARA NOME DO CLIENTE -->
+<div id="modalNomeCliente">
+  <div id="modalNomeConteudo">
+    <div id="modalNomeIcone">🧑‍🎤</div>
+    <h2>Quase lá!</h2>
+    <p>Para finalizar seu pedido, digite seu nome:</p>
+    <input type="text" id="inputNomeCliente" placeholder="Seu nome aqui" maxlength="30" autocomplete="off">
+    <div id="modalNomeBotoes">
+      <button id="btnCancelarNome">Cancelar</button>
+      <button id="btnConfirmarNome">Continuar</button>
+    </div>
+  </div>
 </div>
 
 <div id="notificacoes"></div>

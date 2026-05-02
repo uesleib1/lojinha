@@ -139,6 +139,24 @@ html, body {
   transform: scale(1.1);
 }
 
+/* 🔥 BOTÃO DE COMBOS (Desktop) */
+#btnCombos {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  left: 10px;
+  top: 145px; /* logo abaixo do baú */
+  background: url("img/hotdeal.png") no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.2s;
+}
+
+#btnCombos:hover {
+  transform: scale(1.1);
+}
+
 /* 💰 HUD */
 #moedasHUD {
   position: absolute;
@@ -278,8 +296,8 @@ html, body {
   border: none;
   color: #fff;
   cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 6px;
+  padding: 3px 8px;
+  border-radius: 4px;
 }
 
 #totalPedido {
@@ -346,10 +364,27 @@ html, body {
   top: 50%;
   transform: translateY(-50%);
   display: grid;
-  grid-template-rows: repeat(5, 60px);
+  grid-template-rows: repeat(5, 60px); /* altere para auto ou mantenha */
   gap: 8px;
   z-index: 999;
+
+  /* ← NOVAS REGRAS PARA EVITAR SOBREPOSIÇÃO */
+  max-height: calc(100vh - 100px);    /* limita altura em relação à tela */
+  overflow-y: auto;                   /* rolagem se ultrapassar */
+  padding: 4px 0;                    /* espaço interno opcional */
+  box-sizing: border-box;
 }
+
+/* Ajuste fino para o scroll não atrapalhar a visualização */
+#inventarioSlots::-webkit-scrollbar {
+  width: 4px;
+}
+#inventarioSlots::-webkit-scrollbar-thumb {
+  background: #7a2cff;
+  border-radius: 4px;
+}
+
+
 
 .slot {
   width: 60px;
@@ -421,12 +456,20 @@ html, body {
     height: 70%;
   }
 
-  /* 🎁 BAÚ NO MOBILE: tamanho clicável (50px) – NÃO quebra funções */
+  /* 🎁 BAÚ NO MOBILE */
   #bau {
-    width: 50px;      /* antes 20px era muito pequeno */
-    height: 50px;
+    width: 80px;
+    height: 80px;
     left: 10px;
     top: 50px;
+  }
+
+  /* 🔥 BOTÃO DE COMBOS NO MOBILE */
+  #btnCombos {
+    width: 80px;
+    height: 80px;
+    left: 6px;
+    top: 118px; /* abaixo do baú (80px + 60px de espaço aproximadamente) */
   }
 
   /* Garante que nenhuma div essencial suma ou fique sem pointer-events */
@@ -481,7 +524,6 @@ html, body {
 
 /* 📱 RESPONSIVO */
 @media (max-width: 768px) {
-
   #tituloInicial {
     width: 90%;
     max-width: 320px;
@@ -490,7 +532,6 @@ html, body {
   #btnComecar {
     width: 180px;
   }
-
 }
 
 /* 👁️ VISUALIZADOR */
@@ -502,7 +543,6 @@ html, body {
   justify-content: center;
   align-items: center;
   z-index: 9999;
-
   opacity: 0;
   pointer-events: none;
   transition: 0.3s;
@@ -582,4 +622,463 @@ html, body {
 
 .btnVer:hover {
   background: #666;
+}
+
+/* 🎉 POP-UP DE BOAS-VINDAS */
+#popupBoasVindas {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#popupBoasVindas.ativo {
+  opacity: 1;
+  visibility: visible;
+}
+
+#popupConteudo {
+  background: linear-gradient(145deg, #1e1a2f, #0e0a1a);
+  border: 3px solid #7a2cff;
+  border-radius: 28px;
+  padding: 30px 25px;
+  max-width: 400px;
+  width: 85%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(122, 44, 255, 0.3);
+  position: relative;
+  animation: popupEntrada 0.4s ease-out;
+}
+
+@keyframes popupEntrada {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#popupIcone {
+  font-size: 64px;
+  margin-bottom: 10px;
+  animation: balancar 0.8s ease infinite;
+}
+
+@keyframes balancar {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+}
+
+#popupConteudo h2 {
+  color: #ffd700;
+  font-size: 26px;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+#popupConteudo p {
+  color: #f0f0f0;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 12px 0;
+}
+
+#popupConteudo strong {
+  color: #7a2cff;
+}
+
+#fecharPopup {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 26px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: bold;
+}
+
+#fecharPopup:hover {
+  color: #ff4d4d;
+}
+
+#btnEntendi {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #7a2cff, #4a1a9e);
+  border: none;
+  border-radius: 40px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(122, 44, 255, 0.4);
+}
+
+#btnEntendi:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #8e3aff, #5a1ebf);
+  box-shadow: 0 6px 18px rgba(122, 44, 255, 0.6);
+}
+
+/* 📄 PAGINAÇÃO DAS LOJAS */
+.paginacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.paginacao button {
+  background: #7a2cff;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.paginacao button:hover:not(:disabled) {
+  background: #9b4eff;
+  transform: scale(1.05);
+}
+
+.paginacao button:disabled {
+  background: #444;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+#paginaInfo {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 🔥 BOTÃO FECHAR COM ÍCONE */
+#menuLoja button:not(.btnAdd):not(.btnVer) {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 2px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 100%;
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#menuLoja button:not(.btnAdd):not(.btnVer):hover {
+  background: #ff4d4d;
+  color: white;
+  border-color: white;
+  box-shadow: 0 0 15px #ff4d4d;
+  transform: translateY(-2px);
+}
+
+#menuLoja button:not(.btnAdd):not(.btnVer):active {
+  transform: translateY(1px);
+}
+
+/* 🔥 BOTÃO FECHAR DO INVENTÁRIO (estilizado) */
+#inventarioBox button:not(#btnFinalizar) {
+  background: linear-gradient(135deg, #ff4d4d, #b30000);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(255, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+#inventarioBox button:not(#btnFinalizar):hover {
+  background: linear-gradient(135deg, #ff6666, #cc0000);
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
+}
+
+#inventarioBox button:not(#btnFinalizar):active {
+  transform: scale(0.98);
+}
+
+/* 🎯 BOTÃO REMOVER ITEM - TAMANHO FIXO PADRONIZADO */
+.itemInventario button {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  color: #ff9999;
+  cursor: pointer;
+  
+  /* 🔥 TAMANHO FIXO - NÃO MUDA MAIS! */
+  width: 28px;
+  min-width: 28px;
+  max-width: 28px;
+  height: 28px;
+  
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  
+  /* Centralizar o X */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: all 0.2s ease;
+}
+
+.itemInventario button:hover {
+  background: #ff4d4d;
+  color: white;
+  border-color: #ff4d4d;
+  transform: scale(1.05);
+}
+
+.itemInventario button:active {
+  transform: scale(0.95);
+}
+
+/* 🧑 MODAL DE NOME PERSONALIZADO */
+#modalNomeCliente {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+#modalNomeCliente.ativo {
+  opacity: 1;
+  visibility: visible;
+}
+
+#modalNomeConteudo {
+  background: linear-gradient(145deg, #1e1a2f, #0e0a1a);
+  border: 2px solid #7a2cff;
+  border-radius: 28px;
+  padding: 30px 25px;
+  max-width: 350px;
+  width: 85%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(122, 44, 255, 0.3);
+  animation: modalNomeEntrada 0.3s ease-out;
+}
+
+@keyframes modalNomeEntrada {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#modalNomeIcone {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+#modalNomeConteudo h2 {
+  color: #ffd700;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+#modalNomeConteudo p {
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+#inputNomeCliente {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #7a2cff;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s;
+}
+
+#inputNomeCliente:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 12px #ffd700;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#modalNomeBotoes {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+  justify-content: center;
+}
+
+#modalNomeBotoes button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#btnCancelarNome {
+  background: rgba(255, 77, 77, 0.2);
+  color: #ff9999;
+  border: 1px solid #ff4d4d;
+}
+
+#btnCancelarNome:hover {
+  background: #ff4d4d;
+  color: white;
+  transform: scale(1.02);
+}
+
+#btnConfirmarNome {
+  background: linear-gradient(135deg, #7a2cff, #4a1a9e);
+  color: white;
+  box-shadow: 0 4px 12px rgba(122, 44, 255, 0.4);
+}
+
+#btnConfirmarNome:hover {
+  transform: scale(1.02);
+  background: linear-gradient(135deg, #8e3aff, #5a1ebf);
+  box-shadow: 0 6px 18px rgba(122, 44, 255, 0.6);
+}
+
+#btnCombos {
+  position: relative;
+  border-radius: 50%;
+  animation: comboPulse 1.2s ease-in-out infinite;
+}
+
+#btnCombos::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: -1;
+}
+
+#btnCombos:hover::before {
+  opacity: 1;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes comboPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* 🎁 EFEITO DO BAÚ (mesmo estilo dos combos) */
+#bau {
+  animation: bauFloat 2s ease-in-out infinite, bauGlow 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+}
+
+@keyframes bauFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes bauGlow {
+  0% { filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5)); }
+  50% { filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.9)); }
+  100% { filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5)); }
+}
+
+#bau:hover {
+  animation: none;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px #ffcc00);
+}
+
+/* 🖥️ COMPUTADORES / TELAS GRANDES */
+@media (min-width: 900px) {
+  #inventarioSlots {
+    grid-template-rows: repeat(5, 90px); /* altura maior para cada slot */
+    gap: 12px;
+  }
+
+  .slot {
+    width: 90px;
+    height: 90px;
+  }
+
+  .slot img {
+    width: 70%; /* ajusta a imagem proporcionalmente */
+  }
+
+  .qtd {
+    font-size: 14px; /* texto da quantidade um pouco maior */
+    bottom: 4px;
+    right: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* ... seu código atual ... */
+
+  /* Oculta os slots quando o catálogo está aberto */
+  #menuLoja.ativo ~ #inventarioSlots,
+  #menuLoja.ativo + #inventarioSlots,
+  body:has(#menuLoja.ativo) #inventarioSlots {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  /* ... seu código atual ... */
+
+  /* Oculta os slots quando o catálogo está aberto */
+  #menuLoja.ativo ~ #inventarioSlots,
+  #menuLoja.ativo + #inventarioSlots,
+  body:has(#menuLoja.ativo) #inventarioSlots {
+    display: none;
+  }
 }
