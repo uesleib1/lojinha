@@ -1175,4 +1175,37 @@ html, body {
   }
 }
 
+/* 🔥 BOTÃO DE COMBOS (Desktop) - ABAIXO DO BAÚ */
+#btnCombos {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  left: 10px;    /* ← Fica na esquerda */
+  top: 145px;    /* ← Abaixo do baú */
+  /* ... resto dos estilos ... */
+}
+
+/* 📱 MOBILE (até 768px) */
+@media (max-width: 768px) {
+  /* ... outros estilos (lojas, slots, etc) ... */
+
+  #bau {
+    width: 80px;
+    height: 80px;
+    left: 10px;
+    top: 50px;
+  }
+
+  /* 🔥 ÚNICA ALTERAÇÃO QUE EU FIZ - BOTÃO VAI PARA DIREITA */
+  #btnCombos {
+    width: 80px;
+    height: 80px;
+    left: auto;      /* ← MUDEI: antes era left: 10px */
+    right: 10px;     /* ← ADICIONEI: antes não tinha */
+    top: 50px;       /* ← MUDEI: antes era top: 118px */
+  }
+  
+  /* ... resto dos estilos ... */
+}
+
 
